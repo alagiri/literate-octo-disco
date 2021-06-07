@@ -65,7 +65,7 @@ const Comments: React.FunctionComponent<CommentsProps> = (props) => {
             { showComments &&
                 comments.map(comment => {
                     return (
-                        <CommentUI body={comment.body} name={comment.name} email={comment.email} />
+                        <CommentUI key={comment.id} body={comment.body} name={comment.name} email={comment.email} />
                     );
                 })
             }
