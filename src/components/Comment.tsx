@@ -3,10 +3,35 @@ import { ApiService } from "../apiService";
 import "./Comment.css";
 import { Comment } from "./Post";
 
+
+interface CommentUIProps {
+    name: string;
+    email: string;
+    body: string;
+}
+
+const CommentUI: React.FunctionComponent<CommentUIProps> = (props) => {
+    return (
+        <div className="comment">
+            <div className="title">
+                <span className="name">{props.name}</span>
+                <span className="email">({props.email})</span>  
+            </div>
+            <div>{props.body}</div>
+        </div>
+    );
+}
+
+
 interface CommentsProps {
     postId: number
 }
 
+/**
+ * A comments components that shows comments for a post
+ * @param props 
+ * @returns 
+ */
 const Comments: React.FunctionComponent<CommentsProps> = (props) => {
 
     // Get api service instance
@@ -15,6 +40,9 @@ const Comments: React.FunctionComponent<CommentsProps> = (props) => {
     const [comments, setComments] = useState<Comment[]>([]);
     const [showComments, setShowComments] = useState<boolean>(false);
 
+    /**
+     * fetch the comments and set state
+     */
     useEffect(()=> {
         async function fetchComments () {
             const comments = await apiService.getComments(props.postId);
@@ -23,7 +51,7 @@ const Comments: React.FunctionComponent<CommentsProps> = (props) => {
 
         fetchComments();
 
-    }, []);
+    }, [props.postId, apiService]);
 
     return (
         <div className="comments">
@@ -37,15 +65,7 @@ const Comments: React.FunctionComponent<CommentsProps> = (props) => {
             { showComments &&
                 comments.map(comment => {
                     return (
-                        <div className="comment">
-                            <div className="title" style={{borderBottom: "1px solid #c2c2c2"}}>
-                                <span className="name">{comment.name}</span>
-                                { 
-                                    <span className="email">({comment.email})</span>  
-                                }
-                            </div>
-                            <div>{comment.body}</div>
-                        </div>
+                        <CommentUI body={comment.body} name={comment.name} email={comment.email} />
                     );
                 })
             }

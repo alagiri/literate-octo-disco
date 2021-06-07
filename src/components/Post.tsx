@@ -26,8 +26,10 @@ const PostComp: React.FunctionComponent= () => {
     const apiService = ApiService.getInstance();
     const [posts, setPosts]  = useState<Post[]>([])
 
+    /**
+     * Fetch posts and set state
+     */
     useEffect(() => {
-
         async function fetchPosts () {
             const posts = await apiService.getPosts();
             setPosts(posts);
@@ -35,10 +37,10 @@ const PostComp: React.FunctionComponent= () => {
 
         fetchPosts();
 
-    }, [])
+    }, [apiService])
 
     return (
-        <div style={{"margin": "auto"}}>
+        <div>
         {
             posts.map(post => {
                 return (
