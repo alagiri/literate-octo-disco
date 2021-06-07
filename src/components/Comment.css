@@ -1,0 +1,30 @@
+.comments .comment {
+    border-radius: 4px;
+    background-color: #ebebeb;
+    margin: 4px;
+    padding: 5px;
+}
+
+.comments .comment .title {
+    font-size: 12px;
+    font-weight: 400;  
+}
+
+.comments .comment .name {
+    display: inline-block;
+    margin-right: 4px;
+}
+
+.comments .comment .email {
+    color: blue;
+}
+
+.comments .viewcomment {
+    color: blue;
+    cursor: pointer
+}
+
+.comments .viewcomment:hover {
+    color: blueviolet;
+    text-decoration: underline;
+}
